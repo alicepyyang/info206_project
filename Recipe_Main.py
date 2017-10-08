@@ -3,16 +3,21 @@ from itertools import takewhile, zip_longest
 from os import listdir, remove
 from os.path import join, isfile, splitext, basename
 import webbrowser
+import pickle
+from collections import defaultdict
 
 #-------------------------------------------------------------------------------
 
 SUBDIR = 'recipes'
 
+ingredients = []
+
 def main():
+    global ingredients
     print('Welcome to Recipe Generator')
-    ingredient1 = input('Enter your first ingredient: ')
-    ingredient2 = input('Enter your second ingredient: ')
-    ingredient3 = input('Enter your third ingredient: ')
+    ing = input("Enter the list of ingredients (comma seperated)")
+    ingredient = ing.split(',')
+    ingredients.extend(ingredient)
     recipe_type()
     #options = {'1': view_recipe,
      #          '2': download_recipe,
@@ -146,28 +151,16 @@ def southern():
     recipe_options()
 #-------------------------------------------------------------------------------
 def view_recipe():
-    # path = get_file('Type in the number of the recipe you '
-    #                 'would like to view and press enter.')
-    # print('Reciple for', get_name(path))
-    # with open(path) as file:
-    #     lines = filter(None, map(str.strip, file))
-    #     for step in enumerate(takewhile('heading1'.__ne__, lines), 1):
-    #         print('{}. {}'.format(*step))
-    #     columns = OrderedDict((name.strip(), [])
-    #                           for name in next(lines).split(','))
-    #     max_split = len(columns) - 1
-    #     for info in takewhile('heading2'.__ne__, lines):
-    #         fields = tuple(map(str.strip, info.split(',', max_split)))
-    #         for key, value in zip_longest(columns, fields, fillvalue=''):
-    #             columns[key].append(value)
-    # ingredients = columns['ingredients']
-    # weights = columns['weight']
-    # measurements = columns['measurement']
-    # assert len(ingredients) == len(weights) == len(measurements)
-    # print('Ingredients')
-    # for specification in zip(ingredients, weights, measurements):
-    #     print(*specification)
-    print('view recipe')
+    f = open("data_pickle.pkl", 'rb')
+    data = pickle.load(f)
+    ing_count = defaultdict(int)
+    for k,v in data.items():
+        for ing in ingredients:
+            if ing in ';'.join(v['ing']):
+                ing_count[k] += 1
+    ing_match = sorted(ing_count, key=lambda k: (ing_count[k]*1.0)/len(data[k]), reverse=True)
+    for match in ing_match[ :5]:
+        print('Link: ' , match, '\nMeta : ' , data[match])
 
 def recipe_options():
     options = {'1': view_recipe,
