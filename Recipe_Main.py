@@ -6,11 +6,48 @@ import webbrowser
 import pickle
 from collections import defaultdict
 
+
+import readline
+
+f = open("data_tags.pkl", 'rb')
+data = pickle.load(f)
+
+file = open("data_ing.pkl", 'rb')
+ing_list = pickle.load(file)
+ing_list = [x.strip(' ') for x in ing_list]
+
+class MyCompleter(object):  # Custom completer
+
+    def __init__(self, options):
+        self.options = sorted(options)
+
+    def complete(self, text, state):
+        if state == 0:  # on first trigger, build possible matches
+            if text:  # cache matches (entries that start with entered text)
+                self.matches = [s for s in self.options 
+                   if text in s]
+            else:  # no text entered, all matches possible
+                self.matches = self.options[:]
+
+        # return match indexed by state
+        try: 
+            return self.matches[state]
+        except IndexError:
+            return None
+
 #-------------------------------------------------------------------------------
 
 SUBDIR = 'recipes'
 
+tags = {}
 ingredients = []
+
+
+completer = MyCompleter(ing_list)
+readline.set_completer(completer.complete)
+readline.parse_and_bind('tab: complete')
+for kw in ing_list:
+    readline.add_history(kw)
 
 def main():
     global ingredients
@@ -76,93 +113,96 @@ def recipe_preference():
 def world_cuisine():
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a world cuisine for your recipe.')
-    options = {'1': asian,
-               '2': indian,
-               '3': italian,
-               '4': mexican,
-               '5': southern,
-               '6': quit}
+    options = {'1': 'Asian',
+               '2': 'Indian',
+               '3': 'Italian',
+               '4': 'Mexican',
+               '5': 'South American',
+               '6': 'African',
+               '7': 'European',
+               '8': 'Latin American',
+               '9': 'Middle Eastern',
+               '10': 'Austrian',
+               '11': 'Bangladeshi',
+               '12': 'Caribbean',
+               '13': 'Dutch',
+               '14': 'Eastern European',
+               '15': 'French',
+               '16': 'German',
+               '17': 'Greek',
+               '18': 'Indonesian',
+               '19': 'Israeli',
+               '20': 'Japanese',
+               '21': 'Korean',
+               '22': 'Lebanese',
+               '23': 'Pakistani',
+               '24': 'Scandinavian',
+               '25': 'Spanish',
+               '26': 'Thai',
+               '27': 'Quit'}
     for key in sorted(options, key=int):
-        print('{}) {}'.format(key, get_title(options[key].__name__)))
+        print('{}) {}'.format(key, get_title(options[key])))
     while True:
         choice = input('> ')
-        if choice in options:
-            options[choice]()
+        if choice in options and choice is not '27':
+            tags['world_cuisine'] = options[choice]
+            recipe_options()
             break
+        else:
+            quit()
 #-------------------------------------------------------------------------------
 def no_preference():
+    tags['no_preference'] = 0
     print('\nno preference')
     recipe_options()
 #-------------------------------------------------------------------------------
 def category():
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a category for your recipe.')
-    options = {'1': appetizer,
-               '2': breakfast,
-               '3': dinner,
-               '4': dessert,
-               '5': quit}
+    options = {'1': 'Appetizers and Snacks',
+               '2': 'Breakfast and Brunch',
+               '3': 'Main Dish',
+               '4': 'Desserts',
+               '5': 'Drinks',
+               '6': 'salad',
+               '7': 'Fruits and Vegetables',
+               '8': 'Side Dish',
+               '9': 'Soups, Stews and Chili',
+               '10': 'Quit'}
     for key in sorted(options, key=int):
-        print('{}) {}'.format(key, get_title(options[key].__name__)))
+        print('{}) {}'.format(key, get_title(options[key])))
     while True:
         choice = input('> ')
-        if choice in options:
-            options[choice]()
+        if choice in options and choice is not '10':
+            tags['category'] = options[choice]
+            recipe_options()
             break
-#-------------------------------------------------------------------------------
+        else:
+            quit()
 
-def appetizer():
-    print('\nHere is your appetizer recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-
-def breakfast():
-    print('\nHere is your breakfast recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-
-def dinner():
-    print('\nHere is your dinner recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-
-def dessert():
-    print('\nHere is your dessert recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-def asian():
-    print('\nHere is your asian recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-def indian():
-    print('\nHere is your indian recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-def italian():
-    print('\nHere is your italian recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-def mexican():
-    print('\nHere is your mexican recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
-def southern():
-    print('\nHere is your southern recipe. Enjoy!')
-    recipe_options()
-#-------------------------------------------------------------------------------
 def view_recipe():
-    f = open("data_pickle.pkl", 'rb')
-    data = pickle.load(f)
     ing_count = defaultdict(int)
     for k,v in data.items():
         for ing in ingredients:
             if ing in ';'.join(v['ing']):
                 ing_count[k] += 1
+                if (('world_cuisine' in tags.keys() and \
+                    tags['world_cuisine'] in ';'.join(v['tags'])) or ('category' in tags.keys() and tags['category'] in ';'.join(v['tags'])) or \
+                    ('no_preference' in tags.keys())):
+                    ing_count[k] += len(ingredients)
     ing_match = sorted(ing_count, key=lambda k: (ing_count[k]*1.0)/len(data[k]), reverse=True)
-    for match in ing_match[ :5]:
-        print('Link: ' , match, '\nMeta : ' , data[match])
+    for idx in range(0, len(ing_match), 5):
+        for j in range(idx, idx + 5):
+            print(j - idx + 1 , ') Link: ' , ing_match[j])#, '\nMeta : ' , data[ing_match[j]])
+        opt = int(input('Which recipe do you want or -1 for more recipes?'))
+        if opt == -1:
+            continue
+        else:
+            webbrowser.open(ing_match[(idx + opt - 1)])
+            quit(); break
 
 def recipe_options():
+    print(tags)
     options = {'1': view_recipe,
                '2': download_recipe,
               '3': quit}
