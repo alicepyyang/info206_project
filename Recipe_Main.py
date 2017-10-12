@@ -51,11 +51,11 @@ for kw in ing_list:
 
 def main():
     global ingredients
-    print('Welcome to Recipe Generator')
-    ing = input("Enter the list of ingredients (comma seperated)")
+    print('Welcome To portFOODlio: A Recipe Generator')
+    ing = input("Enter the list of ingredients (comma seperated): ")
     ingredient = ing.split(',')
     ingredients.extend(ingredient)
-    recipe_type()
+    recipe_preference()
     #options = {'1': view_recipe,
      #          '2': download_recipe,
       #         '3': quit}
@@ -66,32 +66,6 @@ def main():
       #  if choice in options:
        #     options[choice]()
         #    break
-#-------------------------------------------------------------------------------
-def recipe_type():
-    print('\nUse the numbers to navigate the menu.')
-    print('Please choose the type of recipe?')
-    options = {'1': vegetarian_recipe,
-               '2': nonvegetarian_recipe,
-               '3': quit}
-    for key in sorted(options, key=int):
-        print('{}) {}'.format(key, get_title(options[key].__name__)))
-    while True:
-        choice = input('> ')
-        if choice in options:
-            options[choice]()
-            break
-
-
-#-------------------------------------------------------------------------------
-def vegetarian_recipe():
-    print('\nVegetarian Recipe Generator')
-    recipe_preference()
-#-------------------------------------------------------------------------------
-
-
-def nonvegetarian_recipe():
-    print('\nNon-Vegetarian Recipe Generator')
-    recipe_preference()
 
 #-------------------------------------------------------------------------------
 def recipe_preference():
@@ -193,7 +167,7 @@ def view_recipe():
     ing_match = sorted(ing_count, key=lambda k: (ing_count[k]*1.0)/len(data[k]), reverse=True)
     for idx in range(0, len(ing_match), 5):
         for j in range(idx, idx + 5):
-            print(j - idx + 1 , ') Link: ' , ing_match[j])#, '\nMeta : ' , data[ing_match[j]])
+            print(j - idx + 1, ') Link: ' , ing_match[j])#, '\nMeta : ' , data[ing_match[j]])
         opt = int(input('Which recipe do you want or -1 for more recipes?'))
         if opt == -1:
             continue
