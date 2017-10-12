@@ -87,38 +87,27 @@ def recipe_preference():
 def world_cuisine():
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a world cuisine for your recipe.')
-    options = {'1': 'Asian',
-               '2': 'Indian',
-               '3': 'Italian',
-               '4': 'Mexican',
-               '5': 'South American',
-               '6': 'African',
-               '7': 'European',
-               '8': 'Latin American',
-               '9': 'Middle Eastern',
-               '10': 'Austrian',
-               '11': 'Bangladeshi',
-               '12': 'Caribbean',
-               '13': 'Dutch',
-               '14': 'Eastern European',
-               '15': 'French',
-               '16': 'German',
-               '17': 'Greek',
-               '18': 'Indonesian',
-               '19': 'Israeli',
-               '20': 'Japanese',
-               '21': 'Korean',
-               '22': 'Lebanese',
-               '23': 'Pakistani',
-               '24': 'Scandinavian',
-               '25': 'Spanish',
-               '26': 'Thai',
-               '27': 'Quit'}
+    options = {'1': 'Chinese',
+               '2': 'French',
+               '3': 'German',
+               '4': 'Greek',
+               '5': 'Indian',
+               '6': 'Japanese',
+               '7': 'Korean',
+               '8': 'Lebanese',
+               '9': 'Pakistani',
+               '10': 'Spanish',
+               '11': 'Thai',
+               '12': 'Italian',
+               '13': 'Mexican',
+               '14': 'Latin American',
+               '15': 'Middle Eastern',
+               '16': 'Quit'}
     for key in sorted(options, key=int):
         print('{}) {}'.format(key, get_title(options[key])))
     while True:
         choice = input('> ')
-        if choice in options and choice is not '27':
+        if choice in options and choice is not '16':
             tags['world_cuisine'] = options[choice]
             recipe_options()
             break
