@@ -54,6 +54,7 @@ for kw in ing_list:
 
 #main function where user is prompted to input the list of ingredients that will be stored in a list
 def main():
+    """Main function to promp user to input the list of ingredients."""
     global ingredients
     print('Welcome To portFOODlio!\nYour own personalized recipe portfolio!')
     print('\nAre you hungry but have no clue as to what to cook?\nNo worries! \nJust provide us with the list of ingredients you would like to incorporate in a dish and we will do the rest for you!')
@@ -65,6 +66,7 @@ def main():
 #-------------------------------------------------------------------------------
 #function where user is prompted to select the recipe preference
 def recipe_preference():
+    """Function where user is prompted to select the recipe preference."""
     print('\nUse the numbers to navigate the menu.')
     print('Please choose your recipe preference.')
     options = {'1': category,
@@ -83,6 +85,7 @@ def recipe_preference():
 #-------------------------------------------------------------------------------
 #function that is executed when the user selects 'category' for recipe preference
 def category():
+    """Function where user is prompted to select a specific category."""
     global video_selection
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a category for your recipe.')
@@ -91,7 +94,7 @@ def category():
                '3': 'Main Dish',
                '4': 'Desserts',
                '5': 'Drinks',
-               '6': 'salad',
+               '6': 'Salad',
                '7': 'Fruits and Vegetables',
                '8': 'Side Dish',
                '9': 'Soups, Stews and Chili',
@@ -115,6 +118,7 @@ def category():
 #-------------------------------------------------------------------------------
 #function that is executed when the user selects 'world cuisine' for recipe preference
 def world_cuisine():
+    """Function where user is prompted to select a specific world cuisine."""
     global video_selection
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a world cuisine for your recipe.')
@@ -154,12 +158,14 @@ def world_cuisine():
 #-------------------------------------------------------------------------------
 #function that is executed when the user selects 'no preference' for recipe preference
 def no_preference():
+    """Function executed if user selects no preference for recipe type."""
     tags['no_preference'] = 0
     recipe_options_category()
 
 #-------------------------------------------------------------------------------
 #function is executed to prompt user to either view or download recipe if chosen from category. 
 def recipe_options_category():
+    """Function executed to prompt user to select how to view recipe if category is selected."""
     print(tags)
     print('\nUse the numbers to navigate the menu.')
     options = {'1': view_recipes,
@@ -178,6 +184,7 @@ def recipe_options_category():
 #-------------------------------------------------------------------------------
 #function is executed to prompt user to either view or download recipe if chosen from world cuisine. 
 def recipe_options_world():
+    """Function executed to prompt user to select how to view recipe if world cuisine is selected."""
     print(tags)
     print('\nUse the numbers to navigate the menu.')
     options = {'1': view_recipes,
@@ -197,14 +204,17 @@ def recipe_options_world():
 #-------------------------------------------------------------------------------
 #function to navigate back to category options
 def go_back_to_category_selection():
-  category()
+    """Function executed if user wants to navigate back to category selection page."""
+    category()
 #-------------------------------------------------------------------------------
 #function to navigate back to world cuisine options
 def go_back_to_world_cuisine_selection():
-  world_cuisine()
+    """Function executed if user wants to navigate back to world cuisine selection page."""
+    world_cuisine()
 #-------------------------------------------------------------------------------
 #function that is executed when the user selects 'view recipe'. web browser opens to the recipe of choice.
 def view_recipes():
+    """Function executed if user wants to view recipe."""
     ing_count = defaultdict(int)
     for k,v in data.items():
         for ing in ingredients:
@@ -230,6 +240,7 @@ def quit():
 #-------------------------------------------------------------------------------
 #function executed when user wants to view YouTube recipe
 def view_youtube_recipe():
+    """Function executed if user wants to view YouTube recipe."""
     query_string = urllib.parse.urlencode({"search_query" : video_selection})
     html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
     search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
