@@ -8,7 +8,7 @@ Have you ever encountered the scenario where you open your fridge looking for so
 ## How to run portFOODlio?
 **Option 1:** Navigate to your computer's terminal(command line) and run the 'Recipe_Main.py' file
 
-**Option2:** Navigate to Jupyter Notebook and run the 'Recipe_Main.py' file
+**Option2:** Navigate to Jupyter Notebook named *__init__.ipynb* in the src/ directory and execute the first cell.
 
 ## Program Architecture
 **1. Python Web Crawler**
@@ -31,8 +31,3 @@ If the user selects to view recipes, then there will be a list of five recipes d
 If the user selects to view a YouTube video, then a webpage will open up and redirect them to a recipe on YouTube.
 
 The user also has the ability to navigate back and forth between selection criterias to make changes before finalizing a recipe to view. The user also has the option to quit the program anytime. 
-
-
-
-## Instructions to run the code
-We have provided a *__init_.ipynb* jupyter notebook file in the src directory. Just launch that on a browser and execute the first cell.
