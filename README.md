@@ -39,6 +39,7 @@ The user also has the ability to navigate back and forth between selection crite
 **Future Implementation:**
 
 **1. GUI**
+
 PortFOODlio is currently accessible through Terminal and Jupyter Notebooks. In order to make it more friendly, the next step is to develop a GUI which makes the program more user friendly. We have already started with developing the GUI for the program by importing **TKinter** and creating screens using Sketch. Files are present in the GitHub repository.
 
 **2. Database**
