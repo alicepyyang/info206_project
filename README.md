@@ -50,7 +50,7 @@ We plan to store and retrieve data crawled from AllRecipies.com in a databse usi
 Individual Responsibilites:
 
 **Amy Huang**
-
+-
 
 **Alice Peiyu**
 
