@@ -50,7 +50,9 @@ We plan to store and retrieve data crawled from AllRecipies.com in a databse usi
 Individual Responsibilites:
 
 **Amy Huang**
--
+- Designed the flow and architecture of the main python program (complete)
+- Programmed the series of functions for user selections (complete)
+- Researched and programmed YouTube function to allow for a video to be displayed based on the ingredients inputted by the user, allrecipes.com, and selected user preference (complete)
 
 **Alice Peiyu**
 
