@@ -1,16 +1,16 @@
-#portFOODlio - Your Recipe Portfolio
+# portFOODlio - Your Recipe Portfolio
 
-**Created By: Amy Huang, Alice Yang, Rajasi Desai, Tanya Piplani
+Created By: Amy Huang, Alice Yang, Rajasi Desai, Tanya Piplani
 
-##What is portFOODlio?
+## What is portFOODlio?
 Have you ever encountered the scenario where you open your fridge looking for something to eat, but only see some leftover ingredients that you don't know how to incorporate together in a dish? This is where portFOODlio will come in handy! portFOODlio is an interactive program that allows the user to input any number of ingredients and it will suggest recipes based on the the ingredients inputted and recipe preference selected by the user. The user will have the option to either view the recipe on a webpage or watch a YouTube video a recipe. This program will help he user relieve some stress from having to sift through multiple recipes to find a recipe to use and, thus, preventing ingredients from being wasted. 
 
-##How to run portFOODlio?
+## How to run portFOODlio?
 **Option 1:** Navigate to your computer's terminal(command line) and run the 'Recipe_Main.py' file
 
 **Option2:** Navigate to Jupyter Notebook and run the 'Recipe_Main.py' file
 
-##Program Architecture**
+## Program Architecture
 **1. Python Web Crawler**
 Beautiful Soup is a python library for pulling data out of HTML and XML files. BeautifulSoup is used in portFOODlio to extract over 30k+ recipes and ingredients data from allrecipes.com webpage. The crawler parses the html of the webpage passing through various hierarchical levels of URLs until a recipe is found. The data from the python crawler is stored in the form of a dictionary consisting of the recipe URL (which contains the name of the dish), the list of ingredients with their required quantities, and the recipe itself. The data from the dictionary is stored into a pickle file that is read by the main program engine. The pickle module implements a fundamental, but powerful algorithm for serializing and de-serializing a Python object structure. 
 
