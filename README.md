@@ -10,6 +10,9 @@ Have you ever encountered the scenario where you open your fridge looking for so
 
 **Option2:** Navigate to Jupyter Notebook named *__init__.ipynb* in the src/ directory and execute the first cell.
 
+**User Input**
+The user enters the list of ingredients, separated by commas. The program handles uppercase and lowercase input.
+
 ## Program Architecture
 **1. Python Web Crawler**
 
@@ -30,4 +33,35 @@ If the user selects to view recipes, then there will be a list of five recipes d
 
 If the user selects to view a YouTube video, then a webpage will open up and redirect them to a recipe on YouTube.
 
-The user also has the ability to navigate back and forth between selection criterias to make changes before finalizing a recipe to view. The user also has the option to quit the program anytime. 
+The user also has the ability to navigate back and forth between selection criterias to make changes before finalizing a recipe to view. The user also has the option to quit the program anytime.
+
+
+**Future Implementation:**
+
+**1. GUI**
+PortFOODlio is currently accessible through Terminal and Jupyter Notebooks. In order to make it more friendly, the next step is to develop a GUI which makes the program more user friendly. We have already started with developing the GUI for the program by importing **TKinter** and creating screens using Sketch. Files are present in the GitHub repository.
+
+**2. Database**
+
+We plan to store and retrieve data crawled from AllRecipies.com in a databse using **SQLite**. Storing data in a database will increase efficiency as retrieval time for data will reduce when the program is running. In the current implementation, we are providing the user links of the top 5 recipes. With the implementation of a DB and the presence of formatting, we can display the results in the GUI. This way, the user will not have to be connected to the internet to find the recipe. We have already started working on the database, the connection with Python is established and the tables are created. Files are present in the GitHub repository. In a few more iterations, a fully functional Database can be ready to store and retrieve recipes.
+
+
+Individual Responsibilites:
+
+**Amy Huang**
+
+
+**Alice Peiyu**
+
+
+**Rajasi Desai**
+- Establishing database connection with Python by importing sqlite (complete)
+- Creating Database. Used SQLite Browser for DB (complete)
+- Integrating Webscraped data with Database (partially complete - Data stored in DB, but retrieval was challenging due to various tags present for every recipe)
+- Creating Homepage for application using Sketch (complete)
+- Creating a GUI by importing TKinter (partially complete - challenges encountered in incorporating images in the GUI and page navigation. Biggest challenge was time constraint)
+
+**Tanya Piplani**
+
+
+
