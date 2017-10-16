@@ -11,15 +11,14 @@ import urllib.parse
 import re
 
 #crawled data is stored in pickle files
-f = open("data_tags.pkl", 'rb')
+f = open("../data/data_tags.pkl", 'rb')
 data = pickle.load(f)
 
-file = open("data_ing.pkl", 'rb')
+file = open("../data/data_ing.pkl", 'rb')
 ing_list = pickle.load(file)
 ing_list = [x.strip(' ') for x in ing_list]
 
 class MyCompleter(object):  # Custom completer
-
     def __init__(self, options):
         self.options = sorted(options)
 
@@ -31,7 +30,6 @@ class MyCompleter(object):  # Custom completer
             else:  # no text entered, all matches possible
                 self.matches = self.options[:]
 
-        # return match indexed by state
         try: 
             return self.matches[state]
         except IndexError:
@@ -227,7 +225,7 @@ def view_recipes():
     ing_match = sorted(ing_count, key=lambda k: (ing_count[k]*1.0)/len(data[k]), reverse=True)
     for idx in range(0, len(ing_match), 5):
         for j in range(idx, idx + 5):
-            print(j - idx + 1,'- Link:' , ing_match[j])#, '\nMeta : ' , data[ing_match[j]])
+            print(j - idx + 1,'- Link:' , ing_match[j])
         opt = int(input('\nEnter the number for the recipe you would like to view or -1 for more recipes?'))
         if opt == -1:
             continue
@@ -248,14 +246,6 @@ def view_youtube_recipe():
 #-------------------------------------------------------------------------------
 
 def get_file(prompt):
-    # files = tuple(name for name in
-    #               (join(SUBDIR, name) for name in listdir(SUBDIR))
-    #               if isfile(name))
-    # for index, path in enumerate(files, 1):
-    #     print('{}) {}'.format(index, get_name(path)))
-    # print('Type in the number of the recipe you '
-    #       'would like to view and press enter.')
-    # return files[int(input('> ')) - 1]
     print('get file')
 
 def get_name(path):
@@ -269,23 +259,3 @@ def get_title(name):
 
 if __name__ == '__main__':
     main()
-
-#-------------------------------------------------------------------------------
-#function that is executed when the user selects 'view youtube recipe'. web browser opens to the recipe of choice.
-#def view_youtube_recipes():
-    # raise NotImplementedError()
- #   print('Explore More Recipes')
-  #  print('Use the numbers to navigate the menu.')
-   # options = {'1': from_youtube,
-    #           '2': from_masterchef,
-     #          '3': quit,}
-    #for key in sorted(options, key=int):
-    #    print('{}) {}'.format(key, get_title(options[key].__name__)))
-    #while True:
-     #   choice = input('> ')
-      #  if choice in options:
-       #     options[choice]()
-        #    break
-
-    # webbrowser.open('https://www.youtube.com/user/allrecipes')
-

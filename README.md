@@ -32,3 +32,7 @@ If the user selects to view a YouTube video, then a webpage will open up and red
 
 The user also has the ability to navigate back and forth between selection criterias to make changes before finalizing a recipe to view. The user also has the option to quit the program anytime. 
 
+
+
+## Instructions to run the code
+We have provided a *__init_.ipynb* jupyter notebook file in the src directory. Just launch that on a browser and execute the first cell.

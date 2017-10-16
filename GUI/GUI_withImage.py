@@ -29,7 +29,7 @@ class Food(tk.Tk):
             frame = self.frames[cont]
             frame.tkraise()
             
-photo = PhotoImage(file="INFO 206 - Portfoodlio.png")
+photo = PhotoImage(file="./img.jpg")
 label = Label(root,image=photo)
 label.pack()
 label = ttk.Label(root, text = "Welcome to Portfoodlio!")
