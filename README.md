@@ -60,11 +60,18 @@ Individual Responsibilites:
 **Rajasi Desai**
 - Establishing database connection with Python by importing sqlite (complete)
 - Creating Database. Used SQLite Browser for DB (complete)
-- Integrating Webscraped data with Database (partially complete - Data stored in DB, but retrieval was challenging due to various tags present for every recipe)
+- Integrating scraped data with Database (partially complete - Data stored in DB, but retrieval was challenging due to various tags present for every recipe)
 - Creating Homepage for application using Sketch (complete)
 - Creating a GUI by importing TKinter (partially complete - challenges encountered in incorporating images in the GUI and page navigation. Biggest challenge was time constraint)
 
 **Tanya Piplani**
+- Scraping over 30k recipes with their ingredients and weblinks from allrecipes.com using BeautifulSoup (complete)
+- Storing scraped data as a dictionary in Pickle file to use it in the main code (complete)
+- Search algorithm for finding the optimal recipe from the scrapped data using the ingredients entered by the user (complete)
+- Integrating scraped data with Database (partially complete - Data stored in DB, but retrieval was challenging due to various tags present for every recipe)
+- Autocomplete feature for user input (partially complete - Code implemented but challenge is to get all the possible ingredients that the user can enter)
+
+
 
 
 
