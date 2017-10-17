@@ -4,16 +4,16 @@ import time
 import cPickle
 from TorCtl import TorCtl
 import urllib2
- 
-#import socks
-#import socket
-#socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050)
-#__originalSocket = socket.socket
 
+
+# library to fake the user agent docstring
 from fake_useragent import UserAgent
 ua = UserAgent()
 
- 
+
+# A function to request an html page from a server.
+# If request is denied, it switches the IP, masks the the user agent 
+# and sends the request again.
 def request(url):
     def _set_urlproxy():
         proxy_support = urllib2.ProxyHandler({"http" : "127.0.0.1:8118"})
@@ -21,23 +21,23 @@ def request(url):
         urllib2.install_opener(opener)
     _set_urlproxy()
 
-    user_agent = ua.random # 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+    user_agent = ua.random 
     headers={'User-Agent':user_agent}
     request=urllib2.Request(url, None, headers)
     return urllib2.urlopen(request).read()
  
+# Function to close the connection with the current IP and launch a new session.
 def _renew_connection():
-    #socket.socket = __originalSocket
     conn = TorCtl.connect(controlAddr="127.0.0.1", controlPort=9052, passphrase="your_password")
     conn.send_signal("NEWNYM")
     conn.close()
-    #socket.socket = socks.socksocket
  
 data = {}
 oldIP = "0.0.0.0"
 newIP = "0.0.0.0"
 
 
+# Check if the IP switch was succesful by pinging a random server
 def renew_connection():
     global oldIP
     global newIP
@@ -52,6 +52,8 @@ def renew_connection():
     	newIP = request("http://icanhazip.com/")
     print request("http://icanhazip.com/")
 
+
+# This function is a beautifulSoup wrapper to get recipes from a html page.
 def explore_level_4(link):
 	html = request(link)
 	soup = BeautifulSoup(html, "lxml")
@@ -64,11 +66,14 @@ def explore_level_4(link):
 		for s in u.findAll('span', {'class':'recipe-directions__list--item'}):
 			recipe.append(s.getText())
         data[link] = {'ing' : ingredients, 'recipe': recipe}
+
+    # If enough data has been crawled, save it to disk.
 	if(len(data.keys()) % 100 == 0):
 		f = open('data.pkl','w')
 		cPickle.dump(data, f)
 		f.close()
 
+# This function is a beautifulSoup wrapper to get from cuisines to recipes for a html page.
 def explore_level_3(link):
 	html = request(link)
 	soup = BeautifulSoup(html, "lxml")
@@ -87,6 +92,7 @@ def explore_level_3(link):
 			renew_connection()
 
 
+# This function is a beautifulSoup wrapper to get from categories to cuisines for a html page.
 def explore_level_2(link):
 	html = request(link)
 	soup = BeautifulSoup(html, "lxml")
@@ -104,6 +110,7 @@ def explore_level_2(link):
 			time.sleep(20);
 			renew_connection()
 
+# This function is a beautifulSoup wrapper to get from the main listing to categories for a html page.
 def explore_level_1(link):
 	html = request(link)
 	soup = BeautifulSoup(html, "lxml")
@@ -123,6 +130,7 @@ def explore_level_1(link):
 
 
 
+# This function is a beautifulSoup wrapper to get from the home page to the listings for a html page.
 def explore_main_link(link):
 	html = request(link)
 	soup = BeautifulSoup(html, "lxml")

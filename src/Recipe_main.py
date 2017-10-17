@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[ ]:
-
-
 from collections import OrderedDict
 from itertools import takewhile, zip_longest
 from os import listdir, remove
@@ -15,6 +9,7 @@ import readline
 import urllib.request
 import urllib.parse
 import re
+from IPython.display import Image, display
 
 #crawled data is stored in pickle files
 f = open("../data/data_tags.pkl", 'rb')
@@ -63,7 +58,9 @@ def main():
     from IPython.display import Image, display
     display(Image('../GUI/img.jpg'))
     print('Welcome To portFOODlio!\nYour own personalized recipe portfolio!')
-    print('\nAre you hungry but have no clue as to what to cook?\nNo worries! \nJust provide us with the list of ingredients you would like to incorporate in a dish and we will do the rest for you!')
+    print('\nAre you hungry but have no clue as to what to cook?\nNo worries! \
+     \nJust provide us with the list of ingredients you would like to incorporate \
+     in a dish and we will do the rest for you!')
     ing = input("\nEnter the list of ingredients (comma seperated): ")
     ingredient = ing.split(',')
     ingredients.extend(ingredient)
@@ -108,7 +105,6 @@ def category():
                '11': 'Quit'}
     
     #Image imported from the web
-    from IPython.display import Image, display
     display(Image('https://img0.etsystatic.com/054/0/9684337/il_fullxfull.726795730_km9q.jpg'))
 
     
@@ -132,8 +128,7 @@ def category():
 def world_cuisine():
     """Function where user is prompted to select a specific world cuisine."""
     global video_selection
-    #Chinese
-    from IPython.display import Image, display
+
     display(Image('https://t4.ftcdn.net/jpg/01/54/91/87/240_F_154918711_cOS6Qd6SkSmUWSyNyF7hNJbCejd6ZVa1.jpg'))
     print('\nUse the numbers to navigate the menu.')
     print('Please choose a world cuisine for your recipe.')
@@ -236,12 +231,19 @@ def view_recipes():
         for ing in ingredients:
             if ing in ';'.join(v['ing']):
                 ing_count[k] += 1
-                if (('world_cuisine' in tags.keys() and                     tags['world_cuisine'] in ';'.join(v['tags'])) or ('category' in tags.keys() and tags['category'] in ';'.join(v['tags'])) or                     ('no_preference' in tags.keys())):
+                # We calcuate the ratio of ingredients that a recipe has matching the query 
+                # to the total number of ingredients that the recipe contains. The rank of
+                # recipe is defined as this ratio. The results are returned in rank major 
+                # order. Out of which the top-k can be extracted linearly. 
+                if (('world_cuisine' in tags.keys() and 
+                    tags['world_cuisine'] in ';'.join(v['tags'])) or 
+                   ('category' in tags.keys() and tags['category'] in ';'.join(v['tags'])) or 
+                   ('no_preference' in tags.keys())):
                     ing_count[k] += len(ingredients)
     ing_match = sorted(ing_count, key=lambda k: (ing_count[k]*1.0)/len(data[k]), reverse=True)
     for idx in range(0, len(ing_match), 5):
         for j in range(idx, idx + 5):
-            print(j - idx + 1,'- Link:' , ing_match[j])
+            print('Dish ' , j - idx + 1,':' , ' '.join(ing_match[j].split('/')[-2].split('-')))
         opt = int(input('\nEnter the number for the recipe you would like to view or -1 for more recipes?'))
         if opt == -1:
             continue
@@ -265,7 +267,6 @@ def get_file(prompt):
     print('get file')
 
 def get_name(path):
-    # return get_title(splitext(basename(path))[0])
     print('get name')
 
 def get_title(name):
