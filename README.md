@@ -54,8 +54,10 @@ Individual Responsibilites:
 - Programmed the series of functions for user selections (complete)
 - Researched and programmed YouTube function to allow for a video to be displayed based on the ingredients inputted by the user, allrecipes.com, and selected user preference (complete)
 
-**Alice Peiyu**
-
+**Alice Yang**
+- Coded View/ Download recipe function of the main Python program(complete)
+- Connected jupyter notebook with Pyhton code to simulate real-time user behavior when running the recipe recommendation program.
+- Recorded and edited demo video to perform user flow with designed images and processes. 
 
 **Rajasi Desai**
 - Establishing database connection with Python by importing sqlite (complete)
